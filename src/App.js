@@ -1,5 +1,6 @@
 import React from 'react';
 import Navigbar from './components/navigationBar/Navigbar';
+import Home from './components/home/Home';
 
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
     
     <div>
     <Navigbar/>
-      <h1>hello welcome here fellas!</h1>
+      <Home/>
     </div>
   );
 }
