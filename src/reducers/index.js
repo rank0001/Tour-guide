@@ -86,12 +86,19 @@ const initialState = {
 			price: "34$",
 		},
 	},
+};
+
+const userState = {
 	user: {
 		isSignedIn: false,
 	},
 };
 
-const user = (state = initialState, action) => {
+const rootReducer = (state = initialState) => {
+	return state;
+};
+
+const user = (state = userState, action) => {
 	switch (action.type) {
 		case "FETCH_USER":
 			return action.payload;
@@ -102,4 +109,5 @@ const user = (state = initialState, action) => {
 
 export default combineReducers({
 	user,
+	rootReducer,
 });
