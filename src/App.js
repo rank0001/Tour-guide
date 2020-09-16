@@ -5,7 +5,10 @@ import { BrowserRouter as Router, Route,Switch} from "react-router-dom";
 import SajekBooking from './components/destinations/sajek/SajekBooking';
 import SundarbanBooking from './components/destinations/sundarban/SundarbanBooking';
 import SreemangalBooking from './components/destinations/sreemangal/SreeMongalBooking';
-//import Switch from 'react-bootstrap/esm/Switch';
+import SundarbanDetails from './components/destinations/sundarban/SundarbanDetails';
+import SajekDetails from './components/destinations/sajek/SajekDetails';
+import SreemangalDetails from './components/destinations/sreemangal/SreemangalDetails';
+
 
 
 function App() {
@@ -17,9 +20,12 @@ function App() {
 				<div className="App">
         <Switch>
 		    <Route exact path="/" component={Home}/> 
-        <Route path="/booking/sajek" component={SajekBooking}/> 
-        <Route path="/booking/sreemangal" component={SreemangalBooking}/> 
-        <Route path="/booking/sundarban" component={SundarbanBooking}/>
+        <Route exact path="/booking/sajek" component={SajekBooking}/> 
+        <Route exact path="/booking/sreemangal" component={SreemangalBooking}/> 
+        <Route exact path="/booking/sundarban" component={SundarbanBooking}/> 
+        <Route path="/booking/sundarban/details" component={SundarbanDetails}/> 
+        <Route path="/booking/sajek/details" component={SajekDetails}/> 
+        <Route path="/booking/sreemangal/details" component={SreemangalDetails}/>
         </Switch>
          </div>
          
