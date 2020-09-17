@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import firebase from "../../FirebaseConfig";
 import { userInfo } from "../../actions";
 import { useHistory,Link } from "react-router-dom";
-
+import './Navigbar.css';
 const Navigbar = (props) => {
     const history = useHistory();
 	const user = props.userDetails.user.isSignedIn;
@@ -29,13 +29,13 @@ const Navigbar = (props) => {
 	};
 
 	return (
-		<Navbar bg="light" variant="light">
+		<Navbar  variant="light">
 			<Navbar.Brand href="#home">
 				<img
 					src="/logo.png"
-					width="30"
-					height="30"
-					className="d-inline-block align-top"
+					width="150"
+					height="50"
+					className="d-inline-block align-top ml-5"
 					alt="React Bootstrap logo"
 				/>
 			</Navbar.Brand>
@@ -62,9 +62,10 @@ const Navigbar = (props) => {
 
                 ):
                 (
-                    <Button onClick={handleSignIn} variant="outline-primary">
+                    <Button onClick={handleSignIn} variant="success">
 					Login
 				</Button>
+				
                 )}
 				
 			</Form>

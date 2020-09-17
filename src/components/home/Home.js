@@ -1,58 +1,79 @@
 import React from "react";
-import { Row, Col, Container, Card } from "react-bootstrap";
+import { Row, Col, Container, Figure, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-
+import "./Home.css";
 const Home = () => {
-    const history  = useHistory();
+	const history = useHistory();
 
 	const handleClick = (e) => {
-        const data = parseInt( e.target.getAttribute("data-id"));
-         if(data===1)
-             history.push('/booking/sajek');
-         else if(data===2)
-            history.push('/booking/sreemangal');
-         else
-             history.push('/booking/sundarban');    
-    }
+		const data = parseInt(e.target.getAttribute("data-id"));
+		if (data === 1) history.push("/booking/sajek");
+		else if (data === 2) history.push("/booking/sreemangal");
+		else history.push("/booking/sundarban");
+	};
 
 	return (
-		<Container>
-			<Row>
-				<Col>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum impedit
-					incidunt, atque totam qui, blanditiis, numquam quod quae minus quas
-					dolorum labore nihil aut amet asperiores ipsam reiciendis obcaecati a.
+		<div className>
+			<Container>
+			<Row className="cards">
+				<Col lg={3} md={3} sm={12}>
+					<h1 className="title">Travel Guide</h1>
+					<h4 className="detail">
+						“THE WORLD IS A BOOK AND THOSE WHO DO NOT TRAVEL READ ONLY A PAGE.”
+						~ SAINT AUGUSTINE
+					</h4>
+					<Button variant="warning">Start Booking</Button>
 				</Col>
-				<Col>
-					<Card onClick={handleClick} style={{ width: "18rem" }}>
-						<Card.Img
-							variant="top"
+				<Col lg={3} md={3} sm={12}>
+					<Figure>
+						<Figure.Image
 							data-id="1"
-							src="/images/sajek.png"
+							onClick={handleClick}
+							width={171}
+							height={180}
+							alt="171x180"
+							src="/images/sajek2.png"
 						/>
-					</Card>
+						<Figure.Caption>
+							<h3 className="place text-center">Sajek</h3>
+						</Figure.Caption>
+					</Figure>
 				</Col>
-				<Col>
-					<Card onClick={handleClick} style={{ width: "18rem" }}>
-						<Card.Img
+				<Col lg={3} md={3} sm={12}>
+					<Figure>
+						<Figure.Image
 							data-id="2"
-							variant="top"
+							onClick={handleClick}
+							width={171}
+							height={180}
+							alt="171x180"
 							src="/images/sreemongol.png"
-							text="sajek"
 						/>
-					</Card>
+						<Figure.Caption>
+							<h3 className="text-center place">Sreemangal</h3>
+						</Figure.Caption>
+					</Figure>
 				</Col>
-				<Col>
-					<Card onClick={handleClick} style={{ width: "18rem" }}>
-						<Card.Img
+				<Col lg={3} md={3} sm={12}>
+					<Figure>
+						<Figure.Image
 							data-id="3"
-							variant="top"
+							onClick={handleClick}
+							width={171}
+							height={180}
+							alt="171x180"
 							src="/images/sundorbon.png"
 						/>
-					</Card>
+						<Figure.Caption>
+							<h3 className="text-center place">Sundarban</h3>
+						</Figure.Caption>
+					</Figure>
 				</Col>
 			</Row>
+			<h3 className="text-center click">Click on the images to select the respective destinations</h3>
 		</Container>
+		</div>
+		
 	);
 };
 

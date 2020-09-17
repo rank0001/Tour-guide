@@ -16,14 +16,15 @@ import { userInfo } from "../../actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import firebase from "../../FirebaseConfig";
+import './SignUp.css';
 
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
 			{"Copyright © "}
-			<Link color="inherit" href="https://material-ui.com/">
+			<Link color="inherit" >
 				Tour guide
-			</Link>{" "}
+			</Link>
 			{new Date().getFullYear()}
 			{"."}
 		</Typography>
@@ -54,17 +55,26 @@ const SignUp = (props) => {
 	const classes = useStyles();
 	const history = useHistory();
 	const [user, setUser] = useState({
-		firstName: null,
-		lastName: null,
-		email: null,
+		firstName: "",
+		lastName: "",
+		email: "",
 		error: "",
+		nameError: "",
+		passwordError: "",
+		success: "",
 	});
 
 	const handleBlur = (e) => {
-		let firstName, email, lastName;
-		if (e.target.name === "firstName") firstName = e.target.value;
+
+		let firstName, email, lastName, password, passwordCheck;
+		if (e.target.name === "firstName") {
+			firstName = e.target.value;
+		}
+
 		if (e.target.name === "lastName") lastName = e.target.value;
+
 		if (e.target.name === "email") email = e.target.value;
+
 		const newUserInfo = { ...user };
 		newUserInfo[e.target.name] = e.target.value;
 		setUser(newUserInfo);
@@ -72,12 +82,22 @@ const SignUp = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		if (user.password && user.email) {
+		if (user.password !== user.passwordConfirm) {
+			const newUserInfo = { ...user };
+			newUserInfo.passwordError = "Your passwords dont match";
+			setUser(newUserInfo);
+		} else if (user.firstName.length <= 2 || user.lastName.length <= 2) {
+			const newUserInfo = { ...user };
+			newUserInfo.nameError = "You must have a decent character length name";
+			setUser(newUserInfo);
+		} else if (user.password && user.email) {
 			firebase
 				.auth()
 				.createUserWithEmailAndPassword(user.email, user.password)
 				.then((res) => {
+
+					
+
 					console.log(res);
 					const signedInUser = {
 						user: {
@@ -86,9 +106,9 @@ const SignUp = (props) => {
 						},
 					};
 					props.userInfo(signedInUser);
-
-					console.log(res);
+					//console.log(res);
 					updateUserName(user.firstName);
+					
 					history.push("/");
 				})
 				.catch(function (error) {
@@ -110,8 +130,7 @@ const SignUp = (props) => {
 				photoURL: "https://example.com/jane-q-user/profile.jpg",
 			})
 			.then(function () {
-				// Update successful.
-				console.log("username updated!");
+				
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -192,7 +211,10 @@ const SignUp = (props) => {
 							/>
 						</Grid>
 						<Grid item xs={12}>
-						<p style={{color:"red"}}>{user.error}</p>
+						
+							<p style={{ color: "red" }}>{user.nameError}</p>
+							<p style={{ color: "red" }}>{user.passwordError}</p>
+							<p style={{ color: "red" }}>{user.error}</p>
 						</Grid>
 					</Grid>
 					<Button
@@ -212,7 +234,6 @@ const SignUp = (props) => {
 						</Grid>
 					</Grid>
 				</form>
-				
 			</div>
 			<Box mt={5}>
 				<Copyright />

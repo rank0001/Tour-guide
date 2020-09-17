@@ -21,9 +21,9 @@ function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
 			{"Copyright ©"}
-			<Link color="inherit" href="https://material-ui.com/">
+			<Link color="inherit">
 				Tour Guide
-			</Link>{" "}
+			</Link>
 			{new Date().getFullYear()}
 			{"."}
 		</Typography>
@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = (props) => {
+
 	let location;
 	if (props.location.state) location = props.location.state.from; 
 	else 
@@ -61,11 +62,13 @@ const SignIn = (props) => {
 	const [user, setUser] = useState({
 		email: null,
 		password: null,
+		error:''
 	});
 
 	const history = useHistory();
 
-	const provider = new firebase.auth.GoogleAuthProvider();
+	const provider = new firebase.auth.GoogleAuthProvider(); 
+	const  providerFacebook = new firebase.auth.FacebookAuthProvider();
 	const handleSignInWithGoogle = (e) => {
 		e.preventDefault();
 		firebase
@@ -83,7 +86,15 @@ const SignIn = (props) => {
 				//	history.push("/booking/sreemangal/details");
 				 history.push(location);
 				
-			});
+			}).catch(function(error) {
+				// Handle Errors here.
+				
+				var errorMessage = error.message;
+				const newUserInfo = { ...user };
+					newUserInfo.error = errorMessage;
+					setUser(newUserInfo);
+				
+			  });;
 	};
 
 	const handleBlur = (e) => {
@@ -119,12 +130,35 @@ const SignIn = (props) => {
 					//const errorCode = error.code;
 					const errorMessage = error.message;
 					console.log(errorMessage);
+					const newUserInfo = { ...user };
+					newUserInfo.error = errorMessage;
+					setUser(newUserInfo);
 				});
 		}
 	};
 
 	const handleSignInWithFacebook = (e) => {
-		e.preventDefault();
+		e.preventDefault(); 
+		firebase.auth().signInWithPopup(providerFacebook).then(function(result) {
+			const { displayName } = result.user;
+			const signedInUser = {
+				user: {
+					isSignedIn: true,
+					name: displayName,
+				},
+			};
+			props.userInfo(signedInUser);
+			//	history.push("/booking/sreemangal/details");
+			 history.push(location);
+			
+		  }).catch(function(error) {
+			
+			const errorMessage = error.message;
+			const newUserInfo = { ...user };
+					newUserInfo.error = errorMessage;
+					setUser(newUserInfo);
+			
+		  });
 	};
 
 	const classes = useStyles();
@@ -168,6 +202,7 @@ const SignIn = (props) => {
 						control={<Checkbox value="remember" color="primary" />}
 						label="Remember me"
 					/>
+					<p style={{color:"red"}}>{user.error}</p>
 					<Button
 						type="submit"
 						fullWidth

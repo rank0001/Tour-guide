@@ -1,0 +1,36 @@
+/* body{
+    background:url("/images/coxbazar.png") ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center ; 
+    background-size:cover;
+}  */
+.home{
+    background:url("/images/coxbazar.png") ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center ; 
+    background-size:cover; 
+    height: 800px;
+}
+.cards{
+   margin-top:20px;
+} 
+Figure{
+    margin-left: 80px;
+    cursor: pointer;
+}
+.place{
+    color:salmon;
+} 
+.title{
+    
+    font-weight:bold;
+} 
+.detail{
+    color:orangered;
+}
+.click{
+    margin-top: 20px;
+    color:teal;
+}
