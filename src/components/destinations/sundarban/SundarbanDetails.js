@@ -2,8 +2,21 @@ import React from "react";
 import { Row, Col, Container, Figure } from "react-bootstrap";
 import { connect } from "react-redux";
 import SundarbanMap from "./SundarbanMap";
+import {Redirect} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 //import GoogleMap from "../../map/GoogleMap";
-const SundarbanDetails = ({data}) => {
+const SundarbanDetails = ({data,userInfo}) => {
+	const history = useHistory();
+    const logInInfo = userInfo.user.isSignedIn;
+    if(!logInInfo){
+		const location = {
+			pathname: '/signIn',
+			state: { from: '/booking/sundarban/details' }
+		  }
+		  
+		  history.push(location);
+	}
+    
 	return (
 		<div>
 			<Container>
@@ -70,7 +83,7 @@ const SundarbanDetails = ({data}) => {
 
 const mapStateToProps = (state) => {
 	console.log(state);
-	return { data: state.rootReducer };
+	return { data: state.rootReducer,userInfo:state.user };
 };
 
 export default connect(mapStateToProps)(SundarbanDetails);

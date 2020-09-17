@@ -1,9 +1,33 @@
 import React from "react";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
-const Navigbar = () => {
-    const handleClick = ()=>{
-        console.log('clicked');
-    }
+import { connect } from "react-redux";
+import firebase from "../../FirebaseConfig";
+import { userInfo } from "../../actions";
+import { useHistory,Link } from "react-router-dom";
+
+const Navigbar = (props) => {
+    const history = useHistory();
+	const user = props.userDetails.user.isSignedIn;
+	console.log(props.userDetails.user.name);
+	const handleSignIn = () => {
+        console.log("clicked");
+        history.push('./signIn');
+	};
+
+	const handleSignOut = () => {
+		firebase
+			.auth()
+			.signOut()
+			.then(function () {
+				console.log("signed out");
+				const signedOutUser = {
+					user: { isSignedIn: false, name: null },
+				};
+				props.userInfo(signedOutUser);
+				history.push('/signIn');
+			});
+	};
+
 	return (
 		<Navbar bg="light" variant="light">
 			<Navbar.Brand href="#home">
@@ -16,18 +40,40 @@ const Navigbar = () => {
 				/>
 			</Navbar.Brand>
 			<Nav className="mr-auto">
-				<Nav.Link href="/">Home</Nav.Link>
-				<Nav.Link href="#features">Destination</Nav.Link>
-				<Nav.Link href="#pricing">Pricing</Nav.Link>
+			<Nav.Link>
+							<Link to="/">Home</Link>
+						</Nav.Link>
+				
+				{user?
+				(
+					<Nav.Link >Logged in as {props.userDetails.user.name}</Nav.Link>
+				):(
+					<Nav.Link >Viewing as a guest</Nav.Link>
+				)}
+				
 			</Nav>
 			<Form inline>
-				<FormControl type="text" placeholder="Search" className="mr-sm-2" />
-				<Button onClick={handleClick} variant="outline-primary">
+				<FormControl type="text" placeholder="Search" className="mr-sm-2" /> 
+                {user? 
+                (
+                    <Button onClick={handleSignOut} variant="outline-primary">
+					Logout
+				</Button>
+
+                ):
+                (
+                    <Button onClick={handleSignIn} variant="outline-primary">
 					Login
 				</Button>
+                )}
+				
 			</Form>
 		</Navbar>
 	);
 };
 
-export default Navigbar;
+const mapStateToProps = (state) => {
+	console.log(state);
+	return { userDetails: state.user };
+};
+export default connect(mapStateToProps, { userInfo })(Navigbar);

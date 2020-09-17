@@ -3,7 +3,21 @@ import { Row, Col, Container, Figure } from "react-bootstrap";
 import { connect } from "react-redux";
 //import GoogleMap from "../../map/GoogleMap";
 import SajekMap from "./SajekMap";
-const SajekDetails = ({ data }) => {
+import { Redirect } from "react-router-dom";
+import {useHistory} from 'react-router-dom';
+
+const SajekDetails = ({ data,userInfo }) => {
+    const history = useHistory();
+    const logInInfo = userInfo.user.isSignedIn;
+    if(!logInInfo){
+       // return <Redirect to ={"/signIn"}/> 
+       const location = {
+        pathname: '/signIn',
+        state: { from: '/booking/sajek/details' }
+      }
+      
+      history.push(location);
+    }
 	return (
 		<div>
 			<Container>
@@ -70,7 +84,7 @@ const SajekDetails = ({ data }) => {
 
 const mapStateToProps = (state) => {
 	console.log(state);
-	return { data: state.rootReducer };
+	return { data: state.rootReducer,userInfo:state.user };
 };
 
 export default connect(mapStateToProps)(SajekDetails);

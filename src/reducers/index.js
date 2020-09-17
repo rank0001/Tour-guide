@@ -90,7 +90,8 @@ const initialState = {
 
 const userState = {
 	user: {
-		isSignedIn: false,
+    isSignedIn: false,
+    name:null
 	},
 };
 

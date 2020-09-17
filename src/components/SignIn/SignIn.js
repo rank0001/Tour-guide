@@ -20,9 +20,9 @@ import { useHistory } from "react-router-dom";
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
-			{"Copyright © "}
+			{"Copyright ©"}
 			<Link color="inherit" href="https://material-ui.com/">
-				Your Website
+				Tour Guide
 			</Link>{" "}
 			{new Date().getFullYear()}
 			{"."}
@@ -51,6 +51,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = (props) => {
+	let location;
+	if (props.location.state) location = props.location.state.from; 
+	else 
+	  location = '/';
+	console.log(props.location);
+
+	//console.log(`"${location}"`);
 	const [user, setUser] = useState({
 		email: null,
 		password: null,
@@ -65,14 +72,17 @@ const SignIn = (props) => {
 			.auth()
 			.signInWithPopup(provider)
 			.then((result) => {
-				const { displayName, photoURL, email } = result.user;
+				const { displayName } = result.user;
 				const signedInUser = {
 					user: {
 						isSignedIn: true,
+						name: displayName,
 					},
 				};
 				props.userInfo(signedInUser);
-				history.push("/booking/sreemangal/details");
+				//	history.push("/booking/sreemangal/details");
+				 history.push(location);
+				
 			});
 	};
 
@@ -96,17 +106,19 @@ const SignIn = (props) => {
 					const signedInUser = {
 						user: {
 							isSignedIn: true,
+							name: res.user.displayName,
 						},
 					};
+					console.log(res.user.displayName);
 					props.userInfo(signedInUser);
-					history.push("/booking/sreemangal/details");
+					 history.push(location);
+					
 				})
 				.catch(function (error) {
 					// Handle Errors here.
-					var errorCode = error.code;
-					var errorMessage = error.message;
+					//const errorCode = error.code;
+					const errorMessage = error.message;
 					console.log(errorMessage);
-					
 				});
 		}
 	};
@@ -187,12 +199,12 @@ const SignIn = (props) => {
 					</Button>
 					<Grid container>
 						<Grid item xs>
-							<Link href="#" variant="body2">
+							<Link  variant="body2">
 								Forgot password?
 							</Link>
 						</Grid>
 						<Grid item>
-							<Link href="#" variant="body2">
+							<Link href="/signup" variant="body2">
 								{"Don't have an account? Sign Up"}
 							</Link>
 						</Grid>
