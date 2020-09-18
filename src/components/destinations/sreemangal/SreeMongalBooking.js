@@ -5,10 +5,10 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {Button,Box,Typography} from "@material-ui/core";
 import {useHistory} from 'react-router-dom';
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
+		
 
 		"& .MuiTextField-root": {
 			margin: theme.spacing(1),
@@ -31,16 +31,16 @@ const SreemangalBooking = ({ data }) => {
 
 	return (
 		<div className={classes.root}>
-			<Grid container justify="space-around">
+			<Grid container justify="space-around" >
 				<Grid item lg={4} sm={12} xs={12} md={4}>
-					<Typography variant="h2" color="primary">
+					<Typography variant="h2" color="primary" style={{marginTop:'40px'}}>
 						{data.sreemangalDummyData.title}
 					</Typography>
 					<Typography variant="body1">{data.sreemangalDummyData.details}</Typography>
 				</Grid>
 				<Grid item alignContent="flex-end" lg={4} sm={12} xs={12} md={4}>
 					<Box component="span" mt={2}>
-						<form className={classes.root} noValidate autoComplete="off">
+						<form className={classes.root} noValidate autoComplete="off" style={{marginTop:'40px'}} >
 							<TextField
 								label="Origin"
 								id="outlined-size-normal"

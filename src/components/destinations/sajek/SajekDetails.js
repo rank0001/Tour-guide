@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col, Container, Figure } from "react-bootstrap";
 import { connect } from "react-redux";
-//import GoogleMap from "../../map/GoogleMap";
 import SajekMap from "./SajekMap";
 import { useHistory } from "react-router-dom";
 
@@ -11,7 +10,7 @@ const SajekDetails = ({ data, userInfo }) => {
 	if (!logInInfo) {
 		const location = {
 			pathname: "/signIn",
-			state: { from:"/booking/sajek/details" },
+			state: { from: "/booking/sajek/details" },
 		};
 
 		history.push(location);
@@ -114,7 +113,6 @@ const SajekDetails = ({ data, userInfo }) => {
 };
 
 const mapStateToProps = (state) => {
-	console.log(state);
 	return { data: state.rootReducer, userInfo: state.user };
 };
 

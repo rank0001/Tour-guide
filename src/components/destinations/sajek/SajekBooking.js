@@ -23,9 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const SajekBooking = ({ data }) => {
 	const classes = useStyles();
-
 	const history = useHistory();
-
 	const handleClick = () => {
 		history.push("/booking/sajek/details");
 	};
@@ -34,14 +32,23 @@ const SajekBooking = ({ data }) => {
 		<div className={classes.root}>
 			<Grid container justify="space-around">
 				<Grid item lg={4} sm={12} xs={12} md={4}>
-					<Typography variant="h2" color="primary">
+					<Typography
+						variant="h2"
+						color="primary"
+						style={{ marginTop: "40px" }}
+					>
 						{data.sajekDummyData.title}
 					</Typography>
 					<Typography variant="body1">{data.sajekDummyData.details}</Typography>
 				</Grid>
 				<Grid item alignContent="flex-end" lg={4} sm={12} xs={12} md={4}>
 					<Box component="span" mt={2}>
-						<form className={classes.root} noValidate autoComplete="off">
+						<form
+							className={classes.root}
+							noValidate
+							autoComplete="off"
+							style={{ marginTop: "40px" }}
+						>
 							<TextField
 								label="Origin"
 								id="outlined-size-normal"

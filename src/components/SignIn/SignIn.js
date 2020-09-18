@@ -17,7 +17,6 @@ import { userInfo } from "../../actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import CopyrightComp from "../Copyright/CopyrightComp";
-
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
@@ -39,24 +38,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = (props) => {
-
 	let location;
-	if (props.location.state) location = props.location.state.from; 
-	else 
-	  location = '/';
-	console.log(props.location);
-
-	//console.log(`"${location}"`);
+	if (props.location.state) location = props.location.state.from;
+	else location = "/";
 	const [user, setUser] = useState({
 		email: null,
 		password: null,
-		error:''
+		error: "",
 	});
-
 	const history = useHistory();
-
-	const provider = new firebase.auth.GoogleAuthProvider(); 
-	const  providerFacebook = new firebase.auth.FacebookAuthProvider();
+	const provider = new firebase.auth.GoogleAuthProvider();
+	const providerFacebook = new firebase.auth.FacebookAuthProvider();
 	const handleSignInWithGoogle = (e) => {
 		e.preventDefault();
 		firebase
@@ -71,24 +63,21 @@ const SignIn = (props) => {
 					},
 				};
 				props.userInfo(signedInUser);
-				//	history.push("/booking/sreemangal/details");
-				 history.push(location);
-				
-			}).catch(function(error) {
+				history.push(location);
+			})
+			.catch(function (error) {
 				// Handle Errors here.
-				
-				var errorMessage = error.message;
+				const errorMessage = error.message;
 				const newUserInfo = { ...user };
-					newUserInfo.error = errorMessage;
-					setUser(newUserInfo);
-				
-			  });;
+				newUserInfo.error = errorMessage;
+				setUser(newUserInfo);
+			});
 	};
 
 	const handleBlur = (e) => {
-		
 		const newUserInfo = { ...user };
 		newUserInfo[e.target.name] = e.target.value;
+		newUserInfo.error = "";
 		setUser(newUserInfo);
 	};
 
@@ -99,56 +88,54 @@ const SignIn = (props) => {
 				.auth()
 				.signInWithEmailAndPassword(user.email, user.password)
 				.then((res) => {
-					console.log(res);
 					const signedInUser = {
 						user: {
 							isSignedIn: true,
 							name: res.user.displayName,
 						},
 					};
-					console.log(res.user.displayName);
 					props.userInfo(signedInUser);
-					 history.push(location);
-					
+					history.push(location);
 				})
 				.catch(function (error) {
 					// Handle Errors here.
-					//const errorCode = error.code;
 					const errorMessage = error.message;
-					console.log(errorMessage);
 					const newUserInfo = { ...user };
 					newUserInfo.error = errorMessage;
 					setUser(newUserInfo);
 				});
+		} else {
+			const newUserInfo = { ...user };
+			newUserInfo.error = "you must provide credentials to login";
+			setUser(newUserInfo);
 		}
 	};
 
 	const handleSignInWithFacebook = (e) => {
-		e.preventDefault(); 
-		firebase.auth().signInWithPopup(providerFacebook).then(function(result) {
-			const { displayName } = result.user;
-			const signedInUser = {
-				user: {
-					isSignedIn: true,
-					name: displayName,
-				},
-			};
-			props.userInfo(signedInUser);
-		
-			 history.push(location);
-			
-		  }).catch(function(error) {
-			
-			const errorMessage = error.message;
-			const newUserInfo = { ...user };
-					newUserInfo.error = errorMessage;
-					setUser(newUserInfo);
-			
-		  });
+		e.preventDefault();
+		firebase
+			.auth()
+			.signInWithPopup(providerFacebook)
+			.then(function (result) {
+				const { displayName } = result.user;
+				const signedInUser = {
+					user: {
+						isSignedIn: true,
+						name: displayName,
+					},
+				};
+				props.userInfo(signedInUser);
+				history.push(location);
+			})
+			.catch(function (error) {
+				const errorMessage = error.message;
+				const newUserInfo = { ...user };
+				newUserInfo.error = errorMessage;
+				setUser(newUserInfo);
+			});
 	};
 
 	const classes = useStyles();
-
 	return (
 		<Container component="main" maxWidth="xs">
 			<CssBaseline />
@@ -188,7 +175,7 @@ const SignIn = (props) => {
 						control={<Checkbox value="remember" color="primary" />}
 						label="Remember me"
 					/>
-					<p style={{color:"red"}}>{user.error}</p>
+					<p style={{ color: "red" }}>{user.error}</p>
 					<Button
 						type="submit"
 						fullWidth
@@ -220,9 +207,7 @@ const SignIn = (props) => {
 					</Button>
 					<Grid container>
 						<Grid item xs>
-							<Link  variant="body2">
-								Forgot password?
-							</Link>
+							<Link variant="body2">Forgot password?</Link>
 						</Grid>
 						<Grid item>
 							<Link href="/signup" variant="body2">

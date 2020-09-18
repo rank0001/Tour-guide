@@ -3,8 +3,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-
-
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -17,8 +15,6 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import firebase from "../../FirebaseConfig";
 import CopyrightComp from "../Copyright/CopyrightComp";
-
-
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -53,12 +49,11 @@ const SignUp = (props) => {
 	});
 
 	const handleBlur = (e) => {
-		
 		const newUserInfo = { ...user };
 		newUserInfo[e.target.name] = e.target.value;
 		newUserInfo.error = "";
 		newUserInfo.nameError = "";
-		newUserInfo.passwordError=""
+		newUserInfo.passwordError = "";
 		setUser(newUserInfo);
 	};
 
@@ -85,33 +80,31 @@ const SignUp = (props) => {
 						},
 					};
 					props.userInfo(signedInUser);
-					//console.log(res);
 					updateUserName(user.firstName);
-
 					history.push("/");
 				})
 				.catch(function (error) {
 					const errorMessage = error.message;
-					console.log(errorMessage);
 					const newUserInfo = { ...user };
 					newUserInfo.error = errorMessage;
 					setUser(newUserInfo);
 				});
+		} else {
+			const newUserInfo = { ...user };
+			newUserInfo.error = "you must provide credentials to login";
+			setUser(newUserInfo);
 		}
 	};
 
 	const updateUserName = (name) => {
 		const user = firebase.auth().currentUser;
-
 		user
 			.updateProfile({
 				displayName: name,
 				photoURL: "https://example.com/jane-q-user/profile.jpg",
 			})
 			.then(function () {})
-			.catch(function (error) {
-				console.log(error);
-			});
+			.catch(function (error) {});
 	};
 
 	return (
@@ -218,7 +211,6 @@ const SignUp = (props) => {
 	);
 };
 const mapStateToProps = (state) => {
-	console.log("from register", state);
 	return { user: state.user };
 };
 

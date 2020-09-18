@@ -1,6 +1,10 @@
 a {
-    color:black;
-  }
-  a:hover {
-     color: #00F
-  }
+	color: #fff;
+}
+a:hover {
+	color: #00f;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
