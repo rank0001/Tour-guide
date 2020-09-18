@@ -8,7 +8,6 @@ import "./Navigbar.css";
 const Navigbar = (props) => {
 	const history = useHistory();
 	const user = props.userDetails.user.isSignedIn;
-	console.log(props.userDetails.user.name);
 	const handleSignIn = () => {
 		history.push("./signIn");
 	};
