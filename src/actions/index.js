@@ -1,5 +1,4 @@
-export const userInfo = user => {
-	// Return an action
+export const userInfo = (user) => {
 	return {
 		type: "FETCH_USER",
 		payload: user,

@@ -72,7 +72,6 @@ const SignUp = (props) => {
 				.auth()
 				.createUserWithEmailAndPassword(user.email, user.password)
 				.then((res) => {
-					console.log(res);
 					const signedInUser = {
 						user: {
 							isSignedIn: true,

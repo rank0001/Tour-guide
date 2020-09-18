@@ -24,11 +24,9 @@ const useStyles = makeStyles((theme) => ({
 const SunderbanBooking = ({ data }) => {
 	const classes = useStyles();
 	const history = useHistory();
-
 	const handleClick = () => {
 		history.push("/booking/sundarban/details");
 	};
-
 	return (
 		<div className={classes.root}>
 			<Grid container justify="space-around">
@@ -109,8 +107,6 @@ const SunderbanBooking = ({ data }) => {
 };
 
 const mapStateToProps = (state) => {
-	console.log(state);
 	return { data: state.rootReducer };
 };
-
 export default connect(mapStateToProps)(SunderbanBooking);

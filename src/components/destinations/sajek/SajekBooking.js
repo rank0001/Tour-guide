@@ -9,7 +9,6 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
-
 		"& .MuiTextField-root": {
 			margin: theme.spacing(1),
 			width: 200,
@@ -106,7 +105,6 @@ const SajekBooking = ({ data }) => {
 };
 
 const mapStateToProps = (state) => {
-	console.log(state);
 	return { data: state.rootReducer };
 };
 

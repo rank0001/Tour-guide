@@ -99,7 +99,6 @@ const SreemangalBooking = ({ data }) => {
 };
 
 const mapStateToProps = (state) => {
-	console.log(state);
 	return { data: state.rootReducer };
 };
 
