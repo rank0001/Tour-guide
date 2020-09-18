@@ -23,7 +23,7 @@ const SajekMap = () => {
 			<WrappedMap 
 				googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${API_KEY}`}
 				loadingElement={<div style={{ height: `100%` }} />}
-				containerElement={<div style={{ height: `400px` }} />}
+				containerElement={<div style={{ height: `500px` ,width:'400px'}} />}
 				mapElement={<div style={{ height: `100%` }} />}
 			/>
 		</div>

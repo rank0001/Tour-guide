@@ -16,19 +16,7 @@ import firebase from "../../FirebaseConfig";
 import { userInfo } from "../../actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-
-function Copyright() {
-	return (
-		<Typography variant="body2" color="textSecondary" align="center">
-			{"Copyright ©"}
-			<Link color="inherit">
-				Tour Guide
-			</Link>
-			{new Date().getFullYear()}
-			{"."}
-		</Typography>
-	);
-}
+import CopyrightComp from "../Copyright/CopyrightComp";
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -98,9 +86,7 @@ const SignIn = (props) => {
 	};
 
 	const handleBlur = (e) => {
-		let password, email;
-		if (e.target.name === "password") password = e.target.value;
-		if (e.target.name === "email") email = e.target.value;
+		
 		const newUserInfo = { ...user };
 		newUserInfo[e.target.name] = e.target.value;
 		setUser(newUserInfo);
@@ -148,7 +134,7 @@ const SignIn = (props) => {
 				},
 			};
 			props.userInfo(signedInUser);
-			//	history.push("/booking/sreemangal/details");
+		
 			 history.push(location);
 			
 		  }).catch(function(error) {
@@ -247,7 +233,7 @@ const SignIn = (props) => {
 				</form>
 			</div>
 			<Box mt={8}>
-				<Copyright />
+				<CopyrightComp />
 			</Box>
 		</Container>
 	);

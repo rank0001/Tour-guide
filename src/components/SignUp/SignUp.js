@@ -3,8 +3,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+
+
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -16,20 +16,9 @@ import { userInfo } from "../../actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import firebase from "../../FirebaseConfig";
-import './SignUp.css';
+import CopyrightComp from "../Copyright/CopyrightComp";
 
-function Copyright() {
-	return (
-		<Typography variant="body2" color="textSecondary" align="center">
-			{"Copyright © "}
-			<Link color="inherit" >
-				Tour guide
-			</Link>
-			{new Date().getFullYear()}
-			{"."}
-		</Typography>
-	);
-}
+
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -61,22 +50,15 @@ const SignUp = (props) => {
 		error: "",
 		nameError: "",
 		passwordError: "",
-		success: "",
 	});
 
 	const handleBlur = (e) => {
-
-		let firstName, email, lastName, password, passwordCheck;
-		if (e.target.name === "firstName") {
-			firstName = e.target.value;
-		}
-
-		if (e.target.name === "lastName") lastName = e.target.value;
-
-		if (e.target.name === "email") email = e.target.value;
-
+		
 		const newUserInfo = { ...user };
 		newUserInfo[e.target.name] = e.target.value;
+		newUserInfo.error = "";
+		newUserInfo.nameError = "";
+		newUserInfo.passwordError=""
 		setUser(newUserInfo);
 	};
 
@@ -95,9 +77,6 @@ const SignUp = (props) => {
 				.auth()
 				.createUserWithEmailAndPassword(user.email, user.password)
 				.then((res) => {
-
-					
-
 					console.log(res);
 					const signedInUser = {
 						user: {
@@ -108,7 +87,7 @@ const SignUp = (props) => {
 					props.userInfo(signedInUser);
 					//console.log(res);
 					updateUserName(user.firstName);
-					
+
 					history.push("/");
 				})
 				.catch(function (error) {
@@ -129,9 +108,7 @@ const SignUp = (props) => {
 				displayName: name,
 				photoURL: "https://example.com/jane-q-user/profile.jpg",
 			})
-			.then(function () {
-				
-			})
+			.then(function () {})
 			.catch(function (error) {
 				console.log(error);
 			});
@@ -211,7 +188,6 @@ const SignUp = (props) => {
 							/>
 						</Grid>
 						<Grid item xs={12}>
-						
 							<p style={{ color: "red" }}>{user.nameError}</p>
 							<p style={{ color: "red" }}>{user.passwordError}</p>
 							<p style={{ color: "red" }}>{user.error}</p>
@@ -236,7 +212,7 @@ const SignUp = (props) => {
 				</form>
 			</div>
 			<Box mt={5}>
-				<Copyright />
+				<CopyrightComp />
 			</Box>
 		</Container>
 	);
