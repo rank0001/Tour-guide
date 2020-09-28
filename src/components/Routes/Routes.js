@@ -20,6 +20,7 @@ export default function Routes() {
 				<Route exact path="/booking/sundarban" component={SundarbanBooking} />
 				<Route path="/booking/sundarban/details" component={SundarbanDetails} />
 				<Route path="/booking/sajek/details" component={SajekDetails} />
+				<Route path="/booking/signin" component={SignIn} />
 				<Route
 					path="/booking/sreemangal/details"
 					component={SreemangalDetails}
