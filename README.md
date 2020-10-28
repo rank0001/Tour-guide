@@ -2,11 +2,15 @@ This is a travel based app where user can choose their favourite destination for
 
 Environment: Reactjs, Redux, Firebase, Javascript, NodeJS, React-Bootstrap, Material-UI, Google Map Api
 
-* Users can select their favourite destination for booking details.
+* Users can select their favourite destination from the home page.
+
+* Users are taken to their selected destination page after clicking on a destination.
+
+* After selecting their duration of stay in the hotel pressing the button will take them to the destination page. 
+
+* Users can see their chosen destination in google map 
 
 * Guard route and authentication implemented for secure workflow.
-
-* Users can see their chosen destination in google map
 
 Website Link: [Travel Guide](https://travel-guide-2fc02.web.app/ "Travel Guide")
 
