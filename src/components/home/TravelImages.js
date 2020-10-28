@@ -1,5 +1,4 @@
 import React from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -16,23 +15,23 @@ const useStyles = makeStyles((theme) => ({
 		height: "300px",
 		paddingTop: "56.25%", // 16:9
 	},
-	paper: {
-		padding: theme.spacing(2),
-		textAlign: "center",
-		color: theme.palette.text.secondary,
-	},
+
 }));
 
-export default function TravelImages() {
-    const classes = useStyles();
+export default function TravelImages({ state, img }) {
+	const classes = useStyles();
 	return (
 		<div>
-			<CardMedia
-				className={classes.media}
-				image="./images/sajek.png"
-				title="Paella dish"
-				style={{ border: "5px solid yellow" }}
-			/>
+			{state === "true" ? (
+				<CardMedia
+					className={classes.media}
+					image={img}
+					title="Paella dish"
+					style={{ border: "5px solid yellow" }}
+				/>
+			) : (
+				<CardMedia className={classes.media} image={img} title="Paella dish" />
+			)}
 		</div>
 	);
 }

@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import RoomsMapDetail from "./RoomsMapDetail";
-const SajekDetails = ({ data, userInfo }) => {
+const SajekDetails = ({ data, user }) => {
 	const history = useHistory();
-	const logInInfo = userInfo.user.isSignedIn;
+	const logInInfo = user.user.isSignedIn;
 	if (!logInInfo) {
 		const location = {
 			pathname: "/signIn",

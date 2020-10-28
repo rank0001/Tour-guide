@@ -55,6 +55,7 @@ const SignIn = (props) => {
 			.auth()
 			.signInWithPopup(provider)
 			.then((result) => {
+				
 				const { displayName } = result.user;
 				const signedInUser = {
 					user: {
