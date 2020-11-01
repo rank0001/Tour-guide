@@ -1,6 +1,10 @@
+# Travel Guide
+
+![screenshot of the webstie](src/pro3.png)
+
 Website Link: [Travel Guide](https://travel-guide-2fc02.web.app/ "Travel Guide")
 
-This is a travel based app where user can choose their favourite destination for booking purposes and look for its location in the google map.
+Developed a travel based app where user can choose their favourite destination for booking purposes and look for its location in the google map.
 
 Environment: Reactjs, Redux, Firebase, Javascript, NodeJS, React-Bootstrap, Material-UI, Google Map Api
 
